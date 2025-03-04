@@ -12,6 +12,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "9090:8080"
 
 volumes:
   cache:
