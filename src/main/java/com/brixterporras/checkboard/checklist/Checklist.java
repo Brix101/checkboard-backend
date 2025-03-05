@@ -8,7 +8,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "checklists")
 public class Checklist extends BaseEntity {
@@ -16,10 +24,10 @@ public class Checklist extends BaseEntity {
     private String name;
 
     @Column(nullable = false)
-    private boolean isChecked = false;
+    private boolean checked = false;
 
     @Column()
-    private boolean isActive = true;
+    private boolean active = true;
 
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
