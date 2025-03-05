@@ -1,11 +1,13 @@
 package com.brixterporras.checkboard.board;
 
-import org.springframework.http.ResponseEntity;
+import java.util.UUID;
 
 import com.brixterporras.checkboard.common.payload.ResponsePage;
 
 public interface BoardService {
     ResponsePage<Board> getAllBoard(int page, int size);
 
-    ResponseEntity<Board> addStore(Board board);
+    Board getBoardById(UUID id);
+
+    Board addStore(Board board);
 }

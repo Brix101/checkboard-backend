@@ -1,15 +1,18 @@
 package com.brixterporras.checkboard.board;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.brixterporras.checkboard.common.exception.NotFoundException;
 import com.brixterporras.checkboard.common.payload.ResponsePage;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -26,9 +29,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ResponseEntity<Board> addStore(Board board) {
+    public Board getBoardById(UUID id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Board not found with ID: " + id));
+
+        return board;
+    }
+
+    @Transactional
+    @Override
+    public Board addStore(Board board) {
         Board newBoard = boardRepository.save(board);
 
-        return new ResponseEntity<Board>(newBoard, HttpStatus.CREATED);
+        return newBoard;
     }
+
 }
